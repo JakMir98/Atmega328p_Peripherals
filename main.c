@@ -9,13 +9,13 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
-#include "inc/adc.h"
-#include "inc/gpio.h"
-#include "inc/sleepModes.h"
-#include "inc/spi.h"
-#include "inc/usart.h"
+#include "adc.h"
+#include "gpio.h"
+#include "sleepModes.h"
+#include "spi.h"
+#include "usart.h"
 
-#include "tests/tests.h"
+#include "tests.h"
 
 
 int main(void)

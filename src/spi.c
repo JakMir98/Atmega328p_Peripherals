@@ -1,4 +1,4 @@
-#include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\inc\spi.h"
+#include "spi.h"
 
 /**************************************************************************************\
 * Interrupt function pointers
@@ -41,16 +41,19 @@ void spi_deregister_callback(void)
 
 void spi_set_data_order(SpiDataOrder order)
 {
+	SPCR &= ~(1 << DORD); 
     SPCR |= (int)order << DORD;
 }
 
 void spi_set_clock_polarity(SpiClockPolarity clockPolarity)
 {
+	SPCR &= ~(1 << CPOL); 
     SPCR |= (int)clockPolarity << CPOL;
 }
 
 void spi_set_clock_phase(SpiClockPhase clockPhase)
 {
+	SPCR &= ~(1 << CPHA); 
     SPCR |= (int)clockPhase << CPHA;
 }
 
@@ -58,9 +61,10 @@ void spi_set_clk_oscilattor_relation(SpiClkOcilatorRelation clkRelation, uint8_t
 {
     if (doubleSpiSpeed > 0)
     {
+		SPSR &= ~(1 << SPI2X); 
         SPSR |= 1 << SPI2X;
     }
-
+	SPCR &= ~((1 << SPR0) | (1 << SPR1));
     SPCR |= (int)clkRelation << SPR0;
 }
 

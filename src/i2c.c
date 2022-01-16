@@ -1,4 +1,4 @@
-#include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\inc\i2c.h"
+#include "i2c.h"
 
 /**************************************************************************************\
 * Interrupt function pointers
@@ -29,6 +29,7 @@ void i2c_deregister_callback(void)
 
 void i2c_set_prescaller(I2cBitRatePrescaller prescaller)
 {
+	TWSR &= ~((1 << TWPS0) | (1 << TWPS1)); 
 	TWSR |= (int)prescaller << TWPS0;
 }
 

@@ -1,4 +1,4 @@
-#include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\inc\timers.h"
+#include "timers.h"
 
 /**************************************************************************************\
 * Interrupt function pointers
@@ -41,58 +41,71 @@ void TIMER_COMPARE_init()
 	TIMSK1 |= (1 << OCIE1A); // enable compare interrupt
 	
 }
-/*
+
 //TIMER0 overflow interrupt
 ISR(TIMER0_OVF_vect) 
 {
-	
+	if (timer0overflowInterruptFunction != 0)
+		timer0overflowInterruptFunction();
 }
+
 
 ISR(TIMER0_COMPA_vect)
 {
-	
+	if (timer0compAInterruptFunction != 0)
+		timer0compAInterruptFunction();
 }
 
 ISR(TIMER0_COMPB_vect)
 {
-	
+	if (timer0compBInterruptFunction != 0)
+		timer0compBInterruptFunction();
 }
+
 
 //TIMER1 overflow interrupt
 ISR(TIMER1_OVF_vect) 
 {
-	//testLedState ^= 1;
+	if (timer1overflowInterruptFunction != 0)
+		timer1overflowInterruptFunction();
 }
 
 ISR(TIMER1_COMPA_vect)
 {
-	
+	if (timer1compAInterruptFunction != 0)
+		timer1compAInterruptFunction();
 }
 
 ISR(TIMER1_COMPB_vect)
 {
-	
+	if (timer1compBInterruptFunction != 0)
+		timer1compBInterruptFunction();
 }
 
 
-ISR(TIMER1_CAPT)
+ISR(TIMER1_CAPT_vect)
 {
-	
+	if (timer1captureEventInterruptFunction != 0)
+		timer1captureEventInterruptFunction();
 }
 
-// TIMER1 compare interrupt
+ISR(TIMER2_OVF_vect)
+{
+	if (timer2overflowInterruptFunction != 0)
+		timer2overflowInterruptFunction();
+}
+
 ISR (TIMER2_COMPA_vect)
 {
-	//testLedState ^= 1;
+	if (timer2compAInterruptFunction != 0)
+		timer2compAInterruptFunction();
 }
 
 ISR (TIMER2_COMPB_vect)
 {
-	//testLedState ^= 1;
+	if (timer2compBInterruptFunction != 0)
+		timer2compBInterruptFunction();
 }
 
-ISR (TIMER2_OVF_vect)
-{
-	//testLedState ^= 1;
-}
-*/
+
+

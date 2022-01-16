@@ -1,4 +1,4 @@
-#include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\inc\usart.h"
+#include "usart.h"
 
 /**************************************************************************************\
 * Interrupt function pointers
@@ -72,23 +72,28 @@ void usart_param_init(unsigned int ubrr, uint8_t receiverEnable, uint8_t transmi
 
 void usart_set_mode(UsartMode mode)
 {
+	UCSR0C &= ~((1 << UMSEL00) | (1 << UMSEL01));
     UCSR0C |= (int)mode << UMSEL00;
 }
 
 void usart_set_parity(UsartParity parity)
 {
+	UCSR0C &= ~((1 << UPM00) | (1 << UPM01));
     UCSR0C |= (int)parity << UPM00;
 }
 
 void usart_set_stop_bit(UsartStopBit stopBit)
 {
+	UCSR0C &= ~(1 << USBS0);
     UCSR0C |= (int)stopBit << USBS0;
 }
 
 void usart_set_character_size(UsartCharacterSize characterSize)
 {
+	UCSR0C &= ~((1 << UCSZ00) | (1 << UCSZ01));
     if (characterSize == NINE_BIT)
     {
+		UCSR0B &= ~((1 << UCSZ02));
         UCSR0C |= 3 << UCSZ00;
         UCSR0B |= 1 << UCSZ02;
     }
@@ -100,6 +105,7 @@ void usart_set_character_size(UsartCharacterSize characterSize)
 
 void usart_set_clock_polarity(UsartClockPolarity clockPolarity)
 {
+	UCSR0C &= ~(1 << UCPOL0);
     UCSR0C |= (int)clockPolarity << UCPOL0;
 }
 

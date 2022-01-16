@@ -1,4 +1,4 @@
-#include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\inc\adc.h"
+#include "adc.h"
 
 void (*adcInterruptFunction)() = 0;
 
@@ -12,9 +12,9 @@ void adc_disable(void)
     ADCSRA &= ~(1<<ADEN);
 }
 
-
 void adc_set_reference(ReferenceSelection reference)
 {
+	ADMUX &= ~((1 << REFS0) | (1 << REFS1)); 
 	ADMUX |= ((int)reference<<REFS0);
 }
 
@@ -32,6 +32,7 @@ void adc_set_left_adjust_result(uint8_t adcLeftAdjustResult)
 
 void adc_set_prescaller(PrescallerSelection prescaller)
 {
+	ADCSRA &= ~((1 << ADPS0) | (1 << ADPS1) | (1 << ADPS2)); 
 	ADCSRA |= ((int)prescaller<<ADPS0);
 }
 
@@ -74,6 +75,7 @@ void adc_set_analog_comparator_multiplexer(uint8_t analogCompEna)
 
 void adc_set_auto_trigger_source(AutoTriggerSource autoTrigger)
 {
+	ADCSRB &= ~((1 << ADTS0) | (1 << ADTS1) | (1 << ADTS2)); 
 	ADCSRB |= ((int)autoTrigger << ADTS0);
 }
 
@@ -135,7 +137,7 @@ uint16_t adc_single_read(InputChannelSelection inputChannel)
 	// Reset as required
 	ADCSRA |= (1 << ADIF);
 	
-	return ADCW;
+	return ADC;
 }
 
 uint16_t adc_average_single_read(InputChannelSelection inputChannel, int numberOfSamplesToAverage)

@@ -1,18 +1,12 @@
-/*
- * sleepModesTests.c
- *
- * Created: 14.01.2022 18:02:24
- *  Author: Admin
- */ 
 #ifndef F_CPU
 #define F_CPU 16000000
 #endif
 
 #include <util/delay.h>
-#include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\tests\tests.h"
-#include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\inc\sleepModes.h"
-#include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\inc\gpio.h"
-#include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\inc\usart.h"
+#include "tests.h"
+#include "sleepModes.h"
+#include "gpio.h"
+#include "usart.h"
 
 #include <stdio.h>
 #include <string.h>

@@ -1,4 +1,4 @@
-#include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\inc\sleepModes.h"
+#include "sleepModes.h"
 
 void sleepmodes_go_to_sleep(SleepModes mode, uint8_t adcDisable, uint8_t spiDisable, 
                             uint8_t timer0Disable, uint8_t timer1Disable, uint8_t timer2Disable, 

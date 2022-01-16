@@ -1,16 +1,10 @@
-/*
- * gpioTests.c
- *
- * Created: 14.01.2022 16:58:38
- *  Author: Admin
- */ 
 #ifndef F_CPU
 	#define F_CPU 16000000
 #endif
 
 #include <util/delay.h>
-#include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\tests\tests.h"
-#include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\inc\gpio.h"
+#include "tests.h"
+#include "gpio.h"
 
 volatile uint8_t testLedState = 0;
 volatile uint8_t testLedState2 = 0;

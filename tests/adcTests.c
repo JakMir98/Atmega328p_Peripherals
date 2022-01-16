@@ -1,19 +1,12 @@
-/*
- * adcTests.c
- *
- * Created: 14.01.2022 17:32:09
- *  Author: Admin
- */ 
-
 #ifndef F_CPU
 #define F_CPU 16000000
 #endif
 
 #include <util/delay.h>
 
-#include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\tests\tests.h"
-#include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\inc\adc.h"
-#include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\inc\usart.h"
+#include "tests.h"
+#include "adc.h"
+#include "usart.h"
 
 #include <string.h>
 #include <stdio.h>

@@ -1,4 +1,4 @@
-#include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\inc\gpio.h"
+#include "gpio.h"
 
 /**************************************************************************************\
 * Interrupt function pointers
@@ -392,17 +392,32 @@ void gpio_set_external_interrupt(uint8_t enable, ExternalInterruptName externalI
         //SREG |= 1 << SREG_I;
         if (externalIntterupt == EXT_INT0)
         {
+			EICRA &= ~((1 << ISC00) | (1 << ISC01)); 
             EICRA |= (int)senseControl << ISC00;
             EIMSK |= 1 << INT0;
             int0Function = callback;
         }
         else if (externalIntterupt == EXT_INT1)
         {
+			EICRA &= ~((1 << ISC10) | (1 << ISC11)); 
             EICRA |= (int)senseControl << ISC10;
             EIMSK |= 1 << INT1;
             int1Function = callback;
         }
     }
+	else
+	{
+		if (externalIntterupt == EXT_INT0)
+		{
+			EIMSK &= ~(1 << INT0);
+			int0Function = 0;
+		}
+		else if (externalIntterupt == EXT_INT1)
+		{
+			EIMSK &= ~(1 << INT1);
+			int1Function = 0;
+		}
+	}
 }
 void gpio_set_interrupt(uint8_t enable, PCINT_MAP pcintNumber, void (*callback)())
 {
@@ -428,6 +443,24 @@ void gpio_set_interrupt(uint8_t enable, PCINT_MAP pcintNumber, void (*callback)(
 			pcint2Function = callback;
 		}
     }
+	else
+	{
+		if ((int)pcintNumber < 8)
+		{
+			PCMSK0 &= ~(1 << (int)pcintNumber);
+			pcint0Function = 0;
+		}
+		else if((int)pcintNumber < 15)
+		{
+			PCMSK1 &= ~(1 << ((int)pcintNumber - 8));
+			pcint1Function = 0;
+		}
+		else
+		{
+			PCMSK2 &= ~(1 << ((int)pcintNumber - 16));
+			pcint2Function = 0;
+		}
+	}
 }
 
 void gpio_register_int0_callback(void (*callback)())
