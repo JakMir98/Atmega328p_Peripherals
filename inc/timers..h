@@ -1,19 +1,17 @@
 /*
- * timer.h
+ * timers.h
  *
- * Created: 02.01.2022 17:14:49
- *  Author: Jakub Mirota
+ * Created: 15.01.2022 13:29:30
+ *  Author: Admin
  */ 
 
-#ifndef TIMER_H_
-#define TIMER_H_
 
-#include <avr/io.h>
+#ifndef TIMERS._H_
+#define TIMERS._H_
 
 /**************************************************************************************\
 * Private prototypes
 \**************************************************************************************/
-
 /**
  * @brief Periodic timer initialization overflow mode
  */
@@ -24,4 +22,4 @@ void TIMER_OVERFLOW_init();
  */
 void TIMER_COMPARE_init();
 
-#endif /* TIMER_H_ */
+#endif /* TIMERS._H_ */

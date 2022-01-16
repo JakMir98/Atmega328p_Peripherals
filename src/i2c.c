@@ -1,11 +1,43 @@
-#include "/Projekty/C(C++) projects/AVR projects/Atmega328p_Peripherals/Atmega328p_Peripherals/inc/i2c.h"
+#include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\inc\i2c.h"
 
-static uint16_t I2C_slave_write(uint16_t ADDR)
+/**************************************************************************************\
+* Interrupt function pointers
+\**************************************************************************************/
+void (*i2cInterruptFunction)() = 0;
+
+void i2c_enable_interrupt(uint8_t enable)
+{
+	if (enable > 0)
+	{
+		TWCR |= 1 << TWIE;	
+	}
+	else
+    {
+        TWCR &= ~(1 << TWIE);
+    }
+}
+
+void i2c_register_callback(void (*callback)())
+{
+	i2cInterruptFunction = callback;
+}
+
+void i2c_deregister_callback(void)
+{
+	i2cInterruptFunction = 0;
+}
+
+void i2c_set_prescaller(I2cBitRatePrescaller prescaller)
+{
+	TWSR |= (int)prescaller << TWPS0;
+}
+
+static uint16_t i2c_slave_write(uint16_t ADDR)
 {
 	return ((ADDR << 1) | TW_WRITE);
 }
 
-static uint16_t I2C_slave_read(uint16_t ADDR)
+static uint16_t i2c_slave_read(uint16_t ADDR)
 {
 	return ((ADDR << 1) | TW_READ);
 }
@@ -13,34 +45,32 @@ static uint16_t I2C_slave_read(uint16_t ADDR)
 /**
  * @brief I2C send start condition 
  */
-static uint16_t I2C_send_start();
+static uint16_t i2c_send_start(void);
 
 /**
  * @brief I2C send stop condition 
  */
-static void I2C_send_stop();
+static void i2c_send_stop(void);
 
 /**
  * @brief I2C send slave address 
  * @param addres of slave
  */
-static uint16_t I2C_send_slave_address(uint8_t slaveAddress);
+static uint16_t i2c_send_slave_address(uint8_t slaveAddress);
 
 /**
  * @brief I2C send data
  * @param data to send
  */
-static uint16_t I2C_write_data(uint8_t data);
+static uint16_t i2c_write_data(uint8_t data);
 
 /**
  * @brief I2C receive data 
- * @param read acknowledge -> 1 = true, 0 = false
+ * @param readAcknowledge -> 1 = true, 0 = false
  */
-static uint8_t I2C_read_data(uint8_t readAcknowledge);
+static uint8_t i2c_read_data(uint8_t readAcknowledge);
 
-
-
-static uint16_t I2C_send_start()
+static uint16_t i2c_send_start(void)
 {
 	// Send start condition
 	TWCR = (1 << TWINT) | (1 << TWSTA) | (1 << TWEN); 
@@ -56,13 +86,13 @@ static uint16_t I2C_send_start()
 	return 0; // Success
 }
 
-static void I2C_send_stop()
+static void i2c_send_stop(void)
 {
 	// Transmit stop condition
 	TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO); 
 }
 
-static uint16_t I2C_send_slave_address(uint8_t slaveAddress)
+static uint16_t i2c_send_slave_address(uint8_t slaveAddress)
 {
 	// Send slave address 
 	TWDR = slaveAddress; 
@@ -82,7 +112,7 @@ static uint16_t I2C_send_slave_address(uint8_t slaveAddress)
 	return 0; // success
 }
 
-static uint16_t I2C_write_data(uint8_t data)
+static uint16_t i2c_write_data(uint8_t data)
 {
 	// Load DATA into TWDR Register.
 	TWDR = data;
@@ -102,7 +132,7 @@ static uint16_t I2C_write_data(uint8_t data)
 	return 0; // Success
 }
 
-static uint8_t I2C_read_data(uint8_t readAcknowledge)
+static uint8_t i2c_read_data(uint8_t readAcknowledge)
 {
 	if (readAcknowledge == 1)
 	{
@@ -126,7 +156,7 @@ static uint8_t I2C_read_data(uint8_t readAcknowledge)
 	return data;
 }
 
-void I2C_init(uint8_t freqMode, uint8_t pullupEnable)
+void i2c_init(uint8_t freqMode, uint8_t pullupEnable)
 {
 	DDRC  |= (1 << I2C_SDA_PIN) | (1 << I2C_SCL_PIN);
 	if (pullupEnable == 1)
@@ -158,20 +188,19 @@ void I2C_init(uint8_t freqMode, uint8_t pullupEnable)
 	}
 }
 
-
-uint16_t I2C_transmit(uint8_t slaveAddres, uint8_t* data, uint8_t length, uint8_t repeatStart)
+uint16_t i2c_transmit(uint8_t slaveAddres, uint8_t* data, uint8_t length, uint8_t repeatStart)
 {
 	uint16_t error_code;
 	
 	// Send START condition 
-	error_code = I2C_send_start();
+	error_code = i2c_send_start();
 	if (error_code != 0)
 	{
 		return error_code;
 	}
 	
 	// Send slave address with WRITE flag
-	error_code = I2C_send_slave_address(I2C_slave_write(slaveAddres));
+	error_code = i2c_send_slave_address(i2c_slave_write(slaveAddres));
 	if (error_code != 0)
 	{
 		return error_code;
@@ -180,7 +209,7 @@ uint16_t I2C_transmit(uint8_t slaveAddres, uint8_t* data, uint8_t length, uint8_
 	// Send data byte in single or burst mode
 	for (int i = 0; i < length; ++i)
 	{
-		error_code = I2C_write_data(data[i]);
+		error_code = i2c_write_data(data[i]);
 		if (error_code != 0)
 		{
 			return error_code;
@@ -190,26 +219,25 @@ uint16_t I2C_transmit(uint8_t slaveAddres, uint8_t* data, uint8_t length, uint8_
 	if (!repeatStart)
 	{
 		// Send STOP condition
-		I2C_send_stop();
+		i2c_send_stop();
 	}
 	
 	return 0;
 }
 
-
-uint16_t I2C_receive(uint8_t slaveAddres, uint8_t* data, uint8_t length)
+uint16_t i2c_receive(uint8_t slaveAddres, uint8_t* data, uint8_t length)
 {
 	uint16_t error_code;
 	
 	// Send START condition
-	error_code = I2C_send_start();
+	error_code = i2c_send_start();
 	if (error_code != 0)
 	{
 		return error_code;
 	}
 	
 	// Write slave address with READ flag 
-	error_code = I2C_send_slave_address(I2C_slave_read(slaveAddres));
+	error_code = i2c_send_slave_address(i2c_slave_read(slaveAddres));
 	if (error_code != 0)
 	{
 		return error_code;
@@ -218,12 +246,18 @@ uint16_t I2C_receive(uint8_t slaveAddres, uint8_t* data, uint8_t length)
 	// Read single or multiple data byte and send ack
 	for (int i = 0; i < length-1; ++i)
 	{
-		data[i] = I2C_read_data(I2C_READ_ACK);
+		data[i] = i2c_read_data(I2C_READ_ACK);
 	}
-	data[length-1] = I2C_read_data(I2C_READ_NACK);
+	data[length-1] = i2c_read_data(I2C_READ_NACK);
 	
 	// Send STOP condition 
-	I2C_send_stop();
+	i2c_send_stop();
 	
 	return 0;
+}
+
+ISR(TWI_vect)
+{
+    if (i2cInterruptFunction != 0)
+        i2cInterruptFunction();
 }

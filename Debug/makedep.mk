@@ -2,7 +2,7 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
-main.cpp
+main.c
 
 src\adc.c
 
@@ -14,7 +14,13 @@ src\sleepModes.c
 
 src\spi.c
 
-src\timer.c
+src\usart.c
 
-src\uart.c
+tests\adcTests.c
+
+tests\gpioTests.c
+
+tests\sleepModesTests.c
+
+tests\usartTests.c
 

@@ -20,10 +20,10 @@
     <OverrideVtor>false</OverrideVtor>
     <CacheFlash>true</CacheFlash>
     <ProgFlashFromRam>true</ProgFlashFromRam>
-    <RamSnippetAddress />
+    <RamSnippetAddress>0x20000000</RamSnippetAddress>
     <UncachedRange />
     <preserveEEPROM>true</preserveEEPROM>
-    <OverrideVtorValue />
+    <OverrideVtorValue>exception_table</OverrideVtorValue>
     <BootSegment>2</BootSegment>
     <ResetRule>0</ResetRule>
     <eraseonlaunchrule>0</eraseonlaunchrule>
@@ -40,6 +40,34 @@
         </dependencies>
       </framework-data>
     </AsfFrameworkConfig>
+    <avrtool>com.atmel.avrdbg.tool.simulator</avrtool>
+    <avrtoolserialnumber />
+    <avrdeviceexpectedsignature>0x1E950F</avrdeviceexpectedsignature>
+    <custom>
+      <ToolOptions>
+        <InterfaceProperties>
+        </InterfaceProperties>
+        <InterfaceName>
+        </InterfaceName>
+      </ToolOptions>
+      <ToolType>custom</ToolType>
+      <ToolNumber>
+      </ToolNumber>
+      <ToolName>Custom Programming Tool</ToolName>
+    </custom>
+    <avrtoolinterface />
+    <com_atmel_avrdbg_tool_simulator>
+      <ToolOptions xmlns="">
+        <InterfaceProperties>
+        </InterfaceProperties>
+        <InterfaceName>
+        </InterfaceName>
+      </ToolOptions>
+      <ToolType xmlns="">com.atmel.avrdbg.tool.simulator</ToolType>
+      <ToolNumber xmlns="">
+      </ToolNumber>
+      <ToolName xmlns="">Simulator</ToolName>
+    </com_atmel_avrdbg_tool_simulator>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -168,13 +196,13 @@
     <Compile Include="inc\spi.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="inc\timer.h">
+    <Compile Include="inc\timers..h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="inc\uart.h">
+    <Compile Include="inc\usart.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="main.cpp">
+    <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\adc.c">
@@ -192,15 +220,37 @@
     <Compile Include="src\spi.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\timer.c">
+    <Compile Include="src\timers.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\uart.c">
+    <Compile Include="src\usart.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tests.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tests\adcTests.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tests\gpioTests.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tests\i2cTests.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tests\sleepModesTests.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tests\spiTests.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tests\usartTests.c">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="inc" />
+    <Folder Include="tests" />
     <Folder Include="src" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
