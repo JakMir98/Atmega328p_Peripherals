@@ -41,7 +41,7 @@ void TIMER_COMPARE_init()
 	TIMSK1 |= (1 << OCIE1A); // enable compare interrupt
 	
 }
-
+/*
 //TIMER0 overflow interrupt
 ISR(TIMER0_OVF_vect) 
 {
@@ -73,14 +73,26 @@ ISR(TIMER1_COMPB_vect)
 {
 	
 }
-/*
+
+
 ISR(TIMER1_CAPT)
 {
 	
 }
-*/
+
 // TIMER1 compare interrupt
-ISR (TIMER1_COMPA_vect)
+ISR (TIMER2_COMPA_vect)
 {
-	testLedState ^= 1;
+	//testLedState ^= 1;
 }
+
+ISR (TIMER2_COMPB_vect)
+{
+	//testLedState ^= 1;
+}
+
+ISR (TIMER2_OVF_vect)
+{
+	//testLedState ^= 1;
+}
+*/

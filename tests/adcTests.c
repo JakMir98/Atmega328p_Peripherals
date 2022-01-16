@@ -11,7 +11,7 @@
 
 #include <util/delay.h>
 
-#include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\tests.h"
+#include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\tests\tests.h"
 #include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\inc\adc.h"
 #include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\inc\usart.h"
 
@@ -44,7 +44,6 @@ void adc_test(TestType testType)
 	else if (testType == SECOND_TEST)
 	{
 		adc_init(AVCC, DIVISION_BY_128);
-		adc_
 		usart_init(UBRR_ASYNC_NORMAL);
 		usart_send_string("Init usart done");
 		

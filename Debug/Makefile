@@ -46,10 +46,13 @@ C_SRCS +=  \
 ../src/i2c.c \
 ../src/sleepModes.c \
 ../src/spi.c \
+../src/timers.c \
 ../src/usart.c \
 ../tests/adcTests.c \
 ../tests/gpioTests.c \
+../tests/i2cTests.c \
 ../tests/sleepModesTests.c \
+../tests/spiTests.c \
 ../tests/usartTests.c
 
 
@@ -66,10 +69,13 @@ src/gpio.o \
 src/i2c.o \
 src/sleepModes.o \
 src/spi.o \
+src/timers.o \
 src/usart.o \
 tests/adcTests.o \
 tests/gpioTests.o \
+tests/i2cTests.o \
 tests/sleepModesTests.o \
+tests/spiTests.o \
 tests/usartTests.o
 
 OBJS_AS_ARGS +=  \
@@ -79,10 +85,13 @@ src/gpio.o \
 src/i2c.o \
 src/sleepModes.o \
 src/spi.o \
+src/timers.o \
 src/usart.o \
 tests/adcTests.o \
 tests/gpioTests.o \
+tests/i2cTests.o \
 tests/sleepModesTests.o \
+tests/spiTests.o \
 tests/usartTests.o
 
 C_DEPS +=  \
@@ -92,10 +101,13 @@ src/gpio.d \
 src/i2c.d \
 src/sleepModes.d \
 src/spi.d \
+src/timers.d \
 src/usart.d \
 tests/adcTests.d \
 tests/gpioTests.d \
+tests/i2cTests.d \
 tests/sleepModesTests.d \
+tests/spiTests.d \
 tests/usartTests.d
 
 C_DEPS_AS_ARGS +=  \
@@ -105,10 +117,13 @@ src/gpio.d \
 src/i2c.d \
 src/sleepModes.d \
 src/spi.d \
+src/timers.d \
 src/usart.d \
 tests/adcTests.d \
 tests/gpioTests.d \
+tests/i2cTests.d \
 tests/sleepModesTests.d \
+tests/spiTests.d \
 tests/usartTests.d
 
 OUTPUT_FILE_PATH +=Atmega328p_Peripherals.elf
@@ -167,6 +182,13 @@ src/spi.o: ../src/spi.c
 	@echo Finished building: $<
 	
 
+src/timers.o: ../src/timers.c
+	@echo Building file: $<
+	@echo Invoking: AVR8/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328p -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega328p" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
 src/usart.o: ../src/usart.c
 	@echo Building file: $<
 	@echo Invoking: AVR8/GNU C Compiler : 5.4.0
@@ -188,7 +210,21 @@ tests/gpioTests.o: ../tests/gpioTests.c
 	@echo Finished building: $<
 	
 
+tests/i2cTests.o: ../tests/i2cTests.c
+	@echo Building file: $<
+	@echo Invoking: AVR8/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328p -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega328p" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
 tests/sleepModesTests.o: ../tests/sleepModesTests.c
+	@echo Building file: $<
+	@echo Invoking: AVR8/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328p -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega328p" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+tests/spiTests.o: ../tests/spiTests.c
 	@echo Building file: $<
 	@echo Invoking: AVR8/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328p -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega328p" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

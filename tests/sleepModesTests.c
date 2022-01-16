@@ -9,20 +9,22 @@
 #endif
 
 #include <util/delay.h>
-#include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\tests.h"
+#include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\tests\tests.h"
 #include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\inc\sleepModes.h"
+#include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\inc\gpio.h"
 #include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\inc\usart.h"
 
 #include <stdio.h>
 #include <string.h>
-
-volatile char received;
 
 typedef enum
 {
 	SLEEP_MODE,
 	BLINK_MODE
 }TestModes;
+
+volatile char received;
+volatile TestModes testMode = SLEEP_MODE;
 
 static void usart_interrupt_function()
 {
@@ -36,8 +38,6 @@ static void usart_interrupt_function()
 		testMode = SLEEP_MODE;
 	}
 }
-
-volatile TestModes testMode = SLEEP_MODE;
 
 void sleepModes_test()
 {

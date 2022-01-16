@@ -15,7 +15,7 @@
 #include "inc/spi.h"
 #include "inc/usart.h"
 
-#include "tests.h"
+#include "tests/tests.h"
 
 
 int main(void)

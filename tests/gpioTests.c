@@ -9,7 +9,7 @@
 #endif
 
 #include <util/delay.h>
-#include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\tests.h"
+#include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\tests\tests.h"
 #include "D:\Projekty\C(C++) projects\AVR projects\Atmega328p_Peripherals\Atmega328p_Peripherals\inc\gpio.h"
 
 volatile uint8_t testLedState = 0;

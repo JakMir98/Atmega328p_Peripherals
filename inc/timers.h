@@ -6,8 +6,10 @@
  */ 
 
 
-#ifndef TIMERS._H_
-#define TIMERS._H_
+#ifndef TIMERS_H_
+#define TIMERS_H_
+
+#include <avr/io.h>
 
 /**************************************************************************************\
 * Private prototypes
@@ -22,4 +24,4 @@ void TIMER_OVERFLOW_init();
  */
 void TIMER_COMPARE_init();
 
-#endif /* TIMERS._H_ */
+#endif /* TIMERS_H_ */
